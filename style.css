@@ -1,0 +1,99 @@
+body {
+	background-color:aquamarine;
+}
+#passEnt {
+	visibility: hidden;
+}
+
+table, th, td {
+  border: 1px solid black;
+	border-collapse: collapse;
+	text-align: left;
+	padding:.5em;
+}
+#adminMay {
+	display:none;
+}
+form {
+	width:100%;
+}
+input{
+  border: 2px solid red;
+  border-radius: 4px;
+	font-size: 18px;
+  width: calc(100% - 8px);
+	height:40px;
+	display:block;
+	float:left;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.subNam {
+	margin:auto;
+
+	display:block;
+	width: 70%;
+	font-size: 18px;
+	height: 40px;
+	border: 2px solid red;
+  border-radius: 4px;
+}
+#posSel {
+	width:100%;
+}
+.noMar {
+	padding:2px;
+}
+#votingBox {
+	margin:20px;
+	background-color: lightblue;
+	padding: 10px;
+	display:none;
+	font-size: 24px;
+	padding-left:12px;
+}
+.inl {
+  background-color: #4CAF50; /* Green */
+	margin: 20px;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+}
+#currentV {
+	text-align: center;
+	font-size: 24px;
+}
+#Ausers {
+	column-count: 3;
+	display: block;
+  float: left;
+	margin-bottom:10px;
+}
+#cuR {
+	display: none;
+}
+#buttons {
+	visibility: hidden;
+	margin:20px;
+	background-color: lightblue;
+	padding: 10px;
+	text-align: 24px;
+	padding-left:12px;
+}
+.admin {
+	background-color: #4CAF50; /* Green */
+	margin: 20px;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}

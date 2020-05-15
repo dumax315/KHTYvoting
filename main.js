@@ -12,12 +12,21 @@ function upDateUserList(users, pos, votepr){
 	if (ready) {
 		console.log(votepr);
 		if(votepr != 0){
+			if(ad) {
+				var co = 0;
+				for(i = 0; i < users.length; i++) {
+					if(users[i][3]==0){
+						co += 1;
+					}
+					document.getElementById("abs").innerHTML = "There are/is " + co + " people/person who are/is abstaining, out of " + users.length +" total people."
+				}
+
+			}
 			document.getElementById("votingBox").style.display = "block";
 			document.getElementById("votingBox").innerHTML = "Vote For:";
 			document.getElementById("currentV").innerHTML = "Currently Voting For Position of " + pos[votepr-1][0];
 			document.getElementById("votingBox").innerHTML += "<button class='inl' onclick=\"voteFor(0)\" >Abstain</button>";
 			document.getElementById("votingBox").innerHTML += "<button class='inl' onclick=\"voteFor(1)\" >No Vote</button>";
-
 		}
 		var userLu = "";
 		for (i = 0; i < users.length; i++) {
@@ -55,8 +64,19 @@ function upDateUserList(users, pos, votepr){
 				document.getElementById("tb"+i).innerHTML += ress;
 			}
 		} 
+		document.getElementById("votingBox").innerHTML += " You are currently voting for ";
+		for (i = 0; i < users.length; i++) {
+			if(users[i][0]==socket.id){
+				if(users[i][3] == 0) {
+					document.getElementById("votingBox").innerHTML += "abstaine.";
+				} else if(users[i][3]==1){
+					document.getElementById("votingBox").innerHTML += "no vote.";
+				} else{
+					document.getElementById("votingBox").innerHTML += localPos[localVote-1][users[i][3]-2];
+				}	
+			}
+		}
 	}
-
 }
 
 function addButton(parentId, fun, html, idd) {
@@ -101,9 +121,20 @@ function nextPos(){
 }
 
 function voteFor(an){
-	if (confirm("Are you sure you to vote for "+ localPos[localVote-1][1][an-2])) {
-		socket.emit("voteFor", an);
+	if(an == 0) {
+		if (confirm("Are you sure you want to abstaine")) {
+			socket.emit("voteFor", an);
+		}
+	} else if(an==1){
+		if (confirm("Are you sure you want to vote for No Vote")) {
+			socket.emit("voteFor", an);
+		}
+	} else {
+		if (confirm("Are you sure you want to vote for "+ localPos[localVote-1][1][an-2])) {
+			socket.emit("voteFor", an);
+		}
 	}
+	
 }
 
 function countVote(){
@@ -148,8 +179,10 @@ socket.on('ready', function(users, pos, votepr){
 });
 
 socket.on('resuts', function(voters){
-	document.getElementById("lastEV").innerHTML = "list of voters in the last election: " + voters;
-
+	if (ad){
+		document.getElementById("lastEV").innerHTML = "list of voters in the last election: " + voters;
+	}
+	
 });
 
 socket.on('youAda', function(madeIt){

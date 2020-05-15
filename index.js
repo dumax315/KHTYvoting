@@ -62,7 +62,9 @@ io.on('connection', (socket) => {
 			if(votingProg != 0){
 				countVote();
 			}
-
+			for(i = 0; i < users.length; i++) {
+				users[i][3] = 0;
+			}
 			votingProg += 1;
 			io.emit('changeUserList', users, posisitons, votingProg);
 		}
@@ -74,6 +76,7 @@ io.on('connection', (socket) => {
 				users[i][3] = an;
 			}
 		}
+		io.emit('changeUserList', users, posisitons, votingProg);
   });
 	
 	socket.on('countVote', function(){

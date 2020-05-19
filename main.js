@@ -15,15 +15,15 @@ function upDateUserList(users, pos, votepr){
 			if(ad) {
 				var co = 0;
 				for(i = 0; i < users.length; i++) {
-					if(users[i][3]==0){
+					if(users[i][3]==pos[localVote-1][1].length+2){
 						co += 1;
 					}
-					document.getElementById("abs").innerHTML = "There are/is " + co + " people/person who are/is abstaining, out of " + users.length +" total people."
+					document.getElementById("abs").innerHTML = "There are/is " + co + " people/person who hasn't voted yet, out of " + users.length +" total people."
 				}
 
 			}
 			document.getElementById("votingBox").style.display = "block";
-			document.getElementById("votingBox").innerHTML = "Vote For:";
+			document.getElementById("votingBox").innerHTML = "Vote For:<br>";
 			document.getElementById("currentV").innerHTML = "Currently Voting For Position of " + pos[votepr-1][0];
 			document.getElementById("votingBox").innerHTML += "<button class='inl' onclick=\"voteFor(0)\" >Abstain</button>";
 			document.getElementById("votingBox").innerHTML += "<button class='inl' onclick=\"voteFor(1)\" >No Vote</button>";
@@ -50,29 +50,35 @@ function upDateUserList(users, pos, votepr){
 
 		}
 		document.getElementById("posSel").innerHTML = postr;
-		for (i = 0; i < pos.length; i++) {
-		
-			if (pos[i][2].length >= 1) {
-				console.log(pos[i]);
-				var ress = "<tr>";
-				for (b = 0; b < pos[i][2].length; b++){
-					ress += "<th>" + pos[i][2][b] + "</th>";
-				}
-				ress += "</tr>";
-				console.log(document.getElementById("tb"+i).innerHTML);
 
-				document.getElementById("tb"+i).innerHTML += ress;
-			}
-		} 
-		document.getElementById("votingBox").innerHTML += " You are currently voting for ";
+		if(ad){
+			for (i = 0; i < pos.length; i++) {
+			
+				if (pos[i][2].length >= 1) {
+					console.log(pos[i]);
+					var ress = "<tr>";
+					for (b = 0; b < pos[i][2].length; b++){
+						ress += "<th>" + pos[i][2][b] + "</th>";
+					}
+					ress += "</tr>";
+					console.log(document.getElementById("tb"+i).innerHTML);
+
+					document.getElementById("tb"+i).innerHTML += ress;
+				}
+			} 
+		}
+		
+		document.getElementById("votingBox").innerHTML += "<br>You are currently voting for ";
 		for (i = 0; i < users.length; i++) {
 			if(users[i][0]==socket.id){
 				if(users[i][3] == 0) {
 					document.getElementById("votingBox").innerHTML += "abstaine.";
 				} else if(users[i][3]==1){
 					document.getElementById("votingBox").innerHTML += "no vote.";
+				} else if(users[i][3] == pos[localVote-1][1].length+2){
+					document.getElementById("votingBox").innerHTML += "abstaine.";
 				} else{
-					document.getElementById("votingBox").innerHTML += localPos[localVote-1][users[i][3]-2];
+					document.getElementById("votingBox").innerHTML += localPos[localVote-1][1][users[i][3]-2];
 				}	
 			}
 		}

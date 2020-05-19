@@ -63,7 +63,7 @@ io.on('connection', (socket) => {
 				countVote();
 			}
 			for(i = 0; i < users.length; i++) {
-				users[i][3] = 0;
+				users[i][3] = posisitons[votingProg][1].length+2;
 			}
 			votingProg += 1;
 			io.emit('changeUserList', users, posisitons, votingProg);
@@ -91,10 +91,12 @@ io.on('connection', (socket) => {
 				posisitons[votingProg-1][2].push(0);
 			}
 			for (i = 0; i < users.length; i++) {
-				if (users[i][3] != 0){
+				if (users[i][3] != posisitons[votingProg-1][1].length+2){
 					voters.push(users[i][1]);
-				}	
-				posisitons[votingProg-1][2][users[i][3]] += 1;
+					posisitons[votingProg-1][2][users[i][3]] += 1;
+				}	else {
+					posisitons[votingProg-1][2][0] += 1;
+				}
 			}
 			io.emit("resuts", voters);
 			io.emit('changeUserList', users, posisitons, votingProg);
